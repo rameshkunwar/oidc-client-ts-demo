@@ -14,6 +14,9 @@ const Login = () => {
     if (auth.isLoading) {
         return (<h3>Loading....</h3>)
     }
+    if (auth.isAuthenticated) {
+        return (<h3>I am authenticateed with email = {auth.user?.profile.email} </h3>)
+    }
     return (
         <span>i never come here</span>
     )

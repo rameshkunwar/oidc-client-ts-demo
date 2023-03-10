@@ -1,12 +1,20 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import './App.css'
 import { useAuth } from 'react-oidc-context';
+import { UserManager } from 'oidc-client-ts';
 
 function App() {
   const auth = useAuth();
 
   const [count, setCount] = useState(0)
+
+  const handleLogOut = (e: React.MouseEvent) => {
+    e.preventDefault();
+    // auth.removeUser();
+    // auth.revokeTokens();
+    auth.signoutRedirect();
+  }
 
   return (
     <div className="App">
@@ -28,8 +36,8 @@ function App() {
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
+      <p className="read-the-docs" role={"link"}>
+        <h5 onClick={(e) => handleLogOut(e)}>Log out</h5>
       </p>
     </div>
   )
