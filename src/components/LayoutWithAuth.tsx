@@ -7,7 +7,7 @@ import RequireAuth from "./RequiredAuth";
 
 const LayoutWithAuth = () => {
     const auth = useAuth();
-    var userManager = new UserManager(auth.settings);
+    const userManager = new UserManager(auth.settings);
     React.useEffect(() => {
         const getUser = async () => {
             return await userManager.getUser();

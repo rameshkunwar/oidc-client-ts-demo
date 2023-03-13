@@ -1,4 +1,4 @@
-import { Log, User, WebStorageStateStore } from 'oidc-client-ts'
+import { Log, User, UserManager, WebStorageStateStore } from 'oidc-client-ts'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { createRoutesFromElements, Route, RouterProvider } from 'react-router'
@@ -12,6 +12,8 @@ import { createBrowserRouter } from 'react-router-dom'
 import { AuthProvider, AuthProviderProps } from 'react-oidc-context'
 import { saveCookie } from './components/cookie'
 import { Logout } from './components/Logout'
+
+
 
 Log.setLogger(console)
 Log.setLevel(Log.DEBUG)
@@ -34,6 +36,7 @@ const oidcConfig: AuthProviderProps = {
   client_id: "spa-client",
   redirect_uri: "http://localhost:34452/oidc/callback",
   post_logout_redirect_uri: "http://localhost:34452/oidc/logout",
+  popup_post_logout_redirect_uri: "https://ritzau.com",
   scope: "openid email",
   client_secret: "MySecret",
   automaticSilentRenew: true,
@@ -46,6 +49,8 @@ const oidcConfig: AuthProviderProps = {
   onSignoutRedirect: handleSignoutRedirect
 
 }
+const userManager = new UserManager(oidcConfig);
+userManager.signoutCallback("http://localhost:34452/oidc/logout", true);
 
 
 const createRoute = createRoutesFromElements(
