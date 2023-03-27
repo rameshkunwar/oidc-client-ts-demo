@@ -3,6 +3,9 @@ import reactLogo from './assets/react.svg'
 import './App.css'
 import { useAuth } from 'react-oidc-context';
 import { UserManager } from 'oidc-client-ts';
+import { Route, Routes } from 'react-router';
+import { About, Home } from './components/Home';
+import ErrorPage from './components/Errorpage';
 
 function App() {
   const auth = useAuth();
@@ -18,7 +21,12 @@ function App() {
 
   return (
     <div className="App">
-      <div>
+      <Routes>
+        <Route path='/home' element={<Home />} errorElement={<ErrorPage />} />
+        <Route path='/about' element={<About />} errorElement={<ErrorPage />} />
+      </Routes>
+
+      {/* <div>
         <a href="https://vitejs.dev" target="_blank">
           <img src="/vite.svg" className="logo" alt="Vite logo" />
         </a>
@@ -38,7 +46,7 @@ function App() {
       </div>
       <p className="read-the-docs" role={"link"}>
         <h5 onClick={(e) => handleLogOut(e)}>Log out</h5>
-      </p>
+      </p> */}
     </div>
   )
 }

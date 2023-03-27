@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useAuth } from "react-oidc-context";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const AuthCallback = () => {
     const auth = useAuth();
@@ -11,10 +11,16 @@ const AuthCallback = () => {
         if (auth.isAuthenticated) {
             navigate("/")
         }
-    }, [auth]);
+    }, []);
 
     return (
-        <div>Processing.............</div>
+        <>
+            <div>Processing.............</div>
+            {
+                auth.isAuthenticated ? <Navigate replace to={'/'} /> : (<Navigate to={'/'} />)
+            }
+        </>
+
     )
 }
 export default AuthCallback
